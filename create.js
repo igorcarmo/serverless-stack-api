@@ -1,5 +1,4 @@
 import * as uuid from "uuid";
-// import AWS from "aws-sdk";
 import handler from "./libs/handler-lib";
 import dynamoDb from "./libs/dynamodb-lib";
 
