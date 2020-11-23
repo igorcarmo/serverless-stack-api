@@ -32,6 +32,17 @@ provider:
         - dynamodb:DescribeTable
       Resource: "arn:aws:dynamodb:sa-east-1:*:table/notes"
 
+# cors:
+#   origin: '*'
+#   headers:
+#     - Content-Type
+#     - X-Amz-Date
+#     - Authorization
+#     - X-Api-Key
+#     - X-Amz-Security-Token
+#     - X-Amz-User-Agent
+#   allowCredentials: false
+
 functions:
   create:
     # Defines an HTTP API endpoint that calls the main function in create.js
@@ -68,6 +79,7 @@ functions:
       - http:
           path: notes
           method: get
+          cors: true
           authorizer: aws_iam
 
   update:
@@ -79,6 +91,7 @@ functions:
       - http:
           path: notes/{id}
           method: put
+          cors: true
           authorizer: aws_iam
 
   delete:
@@ -90,6 +103,7 @@ functions:
       - http:
           path: notes/{id}
           method: delete
+          cors: true
           authorizer: aws_iam
 
   billing:
@@ -101,4 +115,10 @@ functions:
       - http:
           path: billing
           method: post
+          cors: true
           authorizer: aws_iam
+
+# Create our resources with separate CloudFormation templates
+resources:
+  # API Gateway Errors
+  - ${file(resources/api-gateway-errors.yml)}
