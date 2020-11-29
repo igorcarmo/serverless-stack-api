@@ -7,7 +7,7 @@ export const main = handler(async (event, context) => {
         // 'Key' defines the partition key and sort key of the item to be removed
         Key: {
             userId: event.requestContext.identity.cognitoIdentityId,
-            noteId: "7d0bfa70-286f-11eb-b736-6d81de2d9473"
+            noteId: event.pathParameters.id
         },
     };
 
